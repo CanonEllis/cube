@@ -74,27 +74,7 @@ def main() -> None:
 # -----------------------------------------------------------------------------
 if __name__ == "__main__":
     main()
-# -----------------------------------------------------------------------------```
-### What the script does
-| Step | Action |
-|------|--------|
-| 1 | Parses the command-line flags (`--moves`, `--start`, `--fast`). |
-| 2 | Calls `init_servo()` with the requested options – this starts **pigpiod**, creates both servo objects, lights the display, etc. |
-| 3 | Registers *Ctrl-C* / SIGTERM handlers so you can kill the run safely. |
-| 4 | Passes your move string straight to `servo_solve_cube()`. |
-| 5 | Reports the result on the terminal **and** on the OLED, waits three seconds, then turns PWM off via `stopping_servos()`. |
-
-> The script never touches camera or colour-scanning code, so it’s perfect for a staged show-and-tell.
-
----
-
-## 2 Putting the cube in the **right** starting state
-
-1. **Compute the inverse** of the long move string
-   – every step reversed and CW ↔ CCW swapped (1 ↔ 3, 0/4 stay).
-   A one-liner in Python does it:
-
-   ```python
+# -----------------------------------------------------------------------------
    inv = []
    for token in reversed([(s[i], s[i+1]) for i in range(0, len(s), 2)]):
        move, val = token
